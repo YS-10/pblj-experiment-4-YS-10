@@ -1,0 +1,81 @@
+q1-
+solution:
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Employee {
+    int id;
+    String name;
+    double salary;
+
+    Employee(int id, String name, double salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return id + ": " + name + " - " + salary;
+    }
+}
+
+public class EmployeeManager {
+    static ArrayList<Employee> employees = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("\n1. Add\n2. Update\n3. Remove\n4. Search\n5. Display\n6. Exit");
+            switch (scanner.nextInt()) {
+                case 1: add(); break;
+                case 2: update(); break;
+                case 3: remove(); break;
+                case 4: search(); break;
+                case 5: display(); break;
+                case 6: return;
+                default: System.out.println("Invalid choice");
+            }
+        }
+    }
+
+    static void add() {
+        System.out.print("ID: "); int id = scanner.nextInt();
+        System.out.print("Name: "); scanner.nextLine(); String name = scanner.nextLine();
+        System.out.print("Salary: "); double salary = scanner.nextDouble();
+        employees.add(new Employee(id, name, salary));
+    }
+
+    static void update() {
+        System.out.print("ID to update: "); int id = scanner.nextInt();
+        for (Employee e : employees) {
+            if (e.id == id) {
+                System.out.print("New Name: "); scanner.nextLine(); e.name = scanner.nextLine();
+                System.out.print("New Salary: "); e.salary = scanner.nextDouble();
+                return;
+            }
+        }
+        System.out.println("Not found.");
+    }
+
+    static void remove() {
+        System.out.print("ID to remove: "); int id = scanner.nextInt();
+        employees.removeIf(e -> e.id == id);
+    }
+
+    static void search() {
+        System.out.print("ID to search: "); int id = scanner.nextInt();
+        for (Employee e : employees) {
+            if (e.id == id) {
+                System.out.println(e);
+                return;
+            }
+        }
+        System.out.println("Not found.");
+    }
+
+    static void display() {
+        if (employees.isEmpty()) System.out.println("No employees.");
+        else employees.forEach(System.out::println);
+    }
+}
