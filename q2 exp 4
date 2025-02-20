@@ -1,0 +1,76 @@
+q1-
+solution:import java.util.*;
+
+class Card {
+    private String rank;  
+    private String suit;  
+    public Card(String rank, String suit) {
+        this.rank = rank;
+        this.suit = suit;
+    }
+
+   
+    public String getRank() {
+        return rank;
+    }
+
+    public String getSuit() {
+        return suit;
+    }
+
+    @Override
+    public String toString() {
+        return rank + " of " + suit;
+    }
+}
+
+public class CardCollector {
+    private Collection<Card> cards;
+
+   
+    public CardCollector() {
+        cards = new ArrayList<>();
+    }
+
+  
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
+    public Collection<Card> findCardsBySuit(String suit) {
+        Collection<Card> result = new ArrayList<>();
+        for (Card card : cards) {
+            if (card.getSuit().equalsIgnoreCase(suit)) {
+                result.add(card);
+            }
+        }
+        return result;
+    }
+   
+    public void displayAllCards() {
+        for (Card card : cards) {
+            System.out.println(card);
+        }
+    }
+
+    public static void main(String[] args) {
+        CardCollector collector = new CardCollector();
+
+        collector.addCard(new Card("2", "Hearts"));
+        collector.addCard(new Card("3", "Hearts"));
+        collector.addCard(new Card("K", "Spades"));
+        collector.addCard(new Card("J", "Diamonds"));
+        collector.addCard(new Card("A", "Clubs"));
+        collector.addCard(new Card("10", "Hearts"));
+        collector.addCard(new Card("7", "Spades"));
+        System.out.println("All Cards in Collection:");
+        collector.displayAllCards();
+        String suitToSearch = "Hearts";
+        System.out.println("\nCards in " + suitToSearch + ":");
+        Collection<Card> heartsCards = collector.findCardsBySuit(suitToSearch);
+
+        for (Card card : heartsCards) {
+            System.out.println(card);
+        }
+    }
+}
